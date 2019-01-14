@@ -1,0 +1,4 @@
+*.log
+
+/generators
+/vendor
