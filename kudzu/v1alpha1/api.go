@@ -37,6 +37,9 @@ var apiCondSet = duck.NewLivingConditionSet(APIApplied, APIUpdated)
 
 type APIStatus struct {
 	// +optional
+	Source *SourceStatus `json:"source,omitempty"`
+
+	// +optional
 	Conditions duck.Conditions `json:"conditions,omitempty"`
 
 	// +optional

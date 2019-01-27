@@ -155,6 +155,11 @@ func schema_kudzush_api_kudzu_v1alpha1_APIStatus(ref common.ReferenceCallback) c
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Properties: map[string]spec.Schema{
+					"source": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kudzu.sh/api/kudzu/v1alpha1.SourceStatus"),
+						},
+					},
 					"conditions": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -189,7 +194,7 @@ func schema_kudzush_api_kudzu_v1alpha1_APIStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"github.com/knative/pkg/apis/duck/v1alpha1.Condition", "kudzu.sh/api/kudzu/v1alpha1.ResourceStatus"},
+			"github.com/knative/pkg/apis/duck/v1alpha1.Condition", "kudzu.sh/api/kudzu/v1alpha1.ResourceStatus", "kudzu.sh/api/kudzu/v1alpha1.SourceStatus"},
 	}
 }
 
