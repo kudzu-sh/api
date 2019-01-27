@@ -4,6 +4,8 @@
 package v1alpha1
 
 import (
+	"fmt"
+
 	core "k8s.io/api/core/v1"
 )
 
@@ -11,6 +13,14 @@ import (
 // +k8s:deepcopy-gen=true
 type SourceSpec struct {
 	Image *ImageSpec `json:"image,omitempty"`
+}
+
+// Matches verifies that a source's status matches its spec.
+func (s SourceSpec) Matches(status *SourceStatus) bool {
+	if s.Image == nil || status == nil {
+		return false
+	}
+	return s.Image.Matches(status.Image)
 }
 
 // ImageSpec specifies a Docker image to install an API or Operator.
@@ -26,6 +36,30 @@ type ImageSpec struct {
 
 	// +optional
 	PullPolicy core.PullPolicy `json:"pullPolicy,omitempty"`
+}
+
+func (i ImageSpec) String() string {
+	if i.Hash != "" {
+		return fmt.Sprintf("%s@%s", i.Repository, i.Hash)
+	}
+	if i.Tag != "" {
+		return fmt.Sprintf("%s:%s", i.Repository, i.Tag)
+	}
+	return fmt.Sprintf("%s:latest", i.Repository)
+}
+
+// Matches verifies that an image's status matches its spec.
+func (i ImageSpec) Matches(status *ImageStatus) bool {
+	if status == nil || i.Repository != status.Repository {
+		return false
+	}
+	if i.Hash != "" && i.Hash != status.Hash {
+		return false
+	}
+	if (i.Tag != "" && i.Tag != status.Tag) || (i.Tag == "" && status.Tag != "latest") {
+		return false
+	}
+	return true
 }
 
 // SourceStatus is the status of fetching the source for an API or Operator.
