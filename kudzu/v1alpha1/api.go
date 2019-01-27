@@ -21,6 +21,18 @@ type API struct {
 	Status APIStatus `json:"status"`
 }
 
+// GetSourceSpec satisfies the Kudzu delegate.Object interface, allowing
+// delegate Pods to be created to reify an API.
+func (a *API) GetSourceSpec() *SourceSpec {
+	return &a.Spec.Source
+}
+
+// GetSourceStatus satisfies the Kudzu delegate.Object interface, allowing
+// delegate Pods to be created to reify an API.
+func (a *API) GetSourceStatus() *SourceStatus {
+	return a.Status.Source
+}
+
 type APISpec struct {
 	Group   string     `json:"group"`
 	Version string     `json:"version"`
