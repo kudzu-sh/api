@@ -34,9 +34,7 @@ func (a *API) GetSourceStatus() *SourceStatus {
 }
 
 type APISpec struct {
-	Group   string     `json:"group"`
-	Version string     `json:"version"`
-	Source  SourceSpec `json:"source,omitempty"`
+	Source SourceSpec `json:"source"`
 }
 
 const (

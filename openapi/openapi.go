@@ -124,25 +124,13 @@ func schema_kudzush_api_kudzu_v1alpha1_APISpec(ref common.ReferenceCallback) com
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Properties: map[string]spec.Schema{
-					"group": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"version": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
 					"source": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kudzu.sh/api/kudzu/v1alpha1.SourceSpec"),
 						},
 					},
 				},
-				Required: []string{"group", "version"},
+				Required: []string{"source"},
 			},
 		},
 		Dependencies: []string{
