@@ -33,6 +33,12 @@ func (a *API) GetSourceStatus() *SourceStatus {
 	return a.Status.Source
 }
 
+// SetSourceStatus satisfies the Kudzu delegate.Object interface, allowing
+// identity of the image used to reify the API to be saved.
+func (a *API) SetSourceStatus(status *SourceStatus) {
+	a.Status.Source = status
+}
+
 type APISpec struct {
 	Source SourceSpec `json:"source"`
 }
